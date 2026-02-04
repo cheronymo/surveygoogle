@@ -55,3 +55,4 @@ covr::package_coverage()
 #> Error in `loadNamespace()`:
 #> ! aucun package nommé 'covr' n'est trouvé
 ```
+# surveygoogle
