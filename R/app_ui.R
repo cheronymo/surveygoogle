@@ -7,11 +7,38 @@
 app_ui <- function(request) {
 	tagList(
 		# Leave this function for adding external resources
-		golem_add_external_resources(),
-		# Your application UI logic
-		fluidPage(
-			golem::golem_welcome_page() # Remove this line to start building your UI
+		golem_add_external_resources(), 
+		
+		navbarPage(
+		  title = "Sharing Survey",
+		  
+		  tabPanel(
+		    "New Observation", 
+		    
+		    #mod_geoloc_ui("geoloc_1"),
+		    
+		    mod_vote_ui("vote_1")
+
+		    
+		  ),
+		  
+		  tabPanel(
+		    "Have a look on the map" , 
+		    
+		    mod_result_ui("result_1")
+		    
+		    
+		    
+		  )
+		  
 		)
+		    
+		    
+		
+		
+		
+		
+		
 	)
 }
 

@@ -6,4 +6,13 @@
 #' @noRd
 app_server <- function(input, output, session) {
 	# Your application server logic
+  r_global <- reactiveValues()
+  
+  mod_vote_server("vote_1", r_global = r_global)
+  
+  mod_result_server("result_1", r_global = r_global)
+  
+  mod_geoloc_server("geoloc_1", r_global = r_global)
+  
+  
 }
