@@ -29,7 +29,7 @@ mod_result_ui <- function(id) {
             label = "Last observation since (in hour):", 
             min = 1, 
             max = 72, 
-            value = 1, 
+            value = 72, 
             step = 1
           ), 
           
@@ -106,34 +106,51 @@ mod_result_server <- function(id, r_global){
     
     
     
-    observeEvent(input$latest , {
+    observeEvent(
+      eventExpr = {
+        input$latest
+        input$select_order
+      },
+       {
       
+         # select delay (if 72,take everything)
+        if(input$latest == 72){
+          r_global$filter =
+            data_read_transform
+        } else{
         r_global$filter =
           data_read_transform %>%
           dplyr::mutate(gap = difftime(format(Sys.time()), DateTime, units = "hours")) %>% 
           dplyr::filter(gap < input$latest) %>% 
           dplyr::select(-gap)
-      
+        }
+         
+        # Select Order
+        if(input$select_order == "All"){
+          r_global$selected = r_global$filter 
+        } else {
+          r_global$selected =
+            r_global$filter %>% filter(Order == input$select_order )
+        }
+        
+        # If nothing create empty data
+        if(dim( r_global$selected)[1]==0){
+          r_global$selected = data.frame(
+            Names = NA, 
+            Order = NA, 
+            Species = NA, 
+            GroupSize = NA, 
+            Longitude = NA, 
+            Latitude = NA, 
+            DateTime = NA
+          ) 
+        }
     })
     
     
-    observeEvent(r_global$filter , {
-      
-      if(input$select_order == "All"){
-        r_global$selected = r_global$filter 
-      } else {
-        r_global$selected =
-          r_global$filter %>% filter(Order == input$select_order )
-      }
-      
-    })
-    
-
-
+    # Make Plot
     map_df = reactive({
-      
       r_global$selected
-      
       })
     
     output$map = renderLeaflet({
@@ -157,7 +174,7 @@ mod_result_server <- function(id, r_global){
       
       
       
-    
+    # Show Dataset
     output$dataset <- DT::renderDataTable({
       datatable(options = list(scrollX = TRUE),
                 r_global$selected

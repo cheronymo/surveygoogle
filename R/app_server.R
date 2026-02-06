@@ -14,5 +14,7 @@ app_server <- function(input, output, session) {
   
   mod_geoloc_server("geoloc_1", r_global = r_global)
   
+  mod_pop_up_warning_server("pop_up_warning_1", r_global = r_global)
+  
   
 }

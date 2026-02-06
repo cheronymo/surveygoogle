@@ -7,6 +7,7 @@
 #' @noRd 
 #'
 #' @importFrom shiny NS tagList 
+#' @importFrom geoloc button_geoloc
 mod_geoloc_ui <- function(id) {
   ns <- NS(id)
   tagList(
@@ -28,6 +29,7 @@ mod_geoloc_server <- function(id, r_global){
     
     
     observeEvent(input$myBtn, {
+ 
       req(input$myBtn_lon)
       req(input$myBtn_lat)
       r_global$lon = input$myBtn_lon

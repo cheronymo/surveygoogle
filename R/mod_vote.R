@@ -22,7 +22,7 @@ mod_vote_ui <- function(id) {
         div(
           style = "display: flex; justify-content: center; align-items: center;",
           
-          p("Here you can record any observation.")
+          p("Here you can record your observation.")
           
           ))
       ,
@@ -33,7 +33,7 @@ mod_vote_ui <- function(id) {
       textInput( 
         inputId = ns("name"), 
         label = "Name Observer", 
-        placeholder = "Enter text..."
+        placeholder = "Paul Newman"
       )))
       
       , 
@@ -54,7 +54,7 @@ mod_vote_ui <- function(id) {
       textInput( 
         inputId = ns("species"), 
         label = "Species", 
-        placeholder = "Enter text..."
+        placeholder = "Delphinus Delphis"
       ))), 
       
       fluidRow(
@@ -62,15 +62,27 @@ mod_vote_ui <- function(id) {
           style = "display: flex; justify-content: center; align-items: center;",
       textInput( 
         inputId = ns("groupsize"), 
-        label = "Groupe Size"
+        label = "Groupe Size", 
+        placeholder = "14"
+        
       ))), 
+      
+      
+      fluidRow(
+        div(
+          style = "display: flex; justify-content: center; align-items: center;",
+      mod_geoloc_ui("geoloc_1")
+        )), 
+      
       
       fluidRow(
         div(
           style = "display: flex; justify-content: center; align-items: center;",
       textInput( 
         inputId = ns("lon"), 
-        label = "Longitude"
+        label = "Longitude", 
+        placeholder = "-2"
+        
       ))), 
       
       fluidRow(
@@ -78,7 +90,9 @@ mod_vote_ui <- function(id) {
           style = "display: flex; justify-content: center; align-items: center;",
       textInput( 
         inputId = ns("lat"), 
-        label = "Latitude"
+        label = "Latitude", 
+        placeholder = "45"
+        
       ))), 
       
       fluidRow(
